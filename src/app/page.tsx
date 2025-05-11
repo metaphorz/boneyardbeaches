@@ -1,103 +1,104 @@
 import Image from "next/image";
+import Link from "next/link";
+import { beaches } from "@/data/beaches";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex flex-col items-center">
+      {/* Hero Section */}
+      <section className="w-full relative text-white">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/botany-bay.jpg"
+            alt="Boneyard Beach at Botany Bay"
+            fill
+            className="object-cover brightness-50"
+            priority
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto py-32 px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
+            Discover America's Boneyard Beaches
+          </h1>
+          <p className="text-xl max-w-3xl mb-8 text-white drop-shadow-md">
+            Explore the haunting beauty of coastal erosion where fallen trees create stunning natural sculptures along America's shorelines.
+          </p>
+          <Link
+            href="/beaches"
+            className="bg-white text-gray-900 px-6 py-3 rounded-md font-medium text-lg hover:bg-gray-100 transition-colors shadow-md"
+          >
+            Explore Beaches
+          </Link>
+        </div>
+      </section>
+
+      {/* Featured Beaches */}
+      <section className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-center mb-12">Featured Boneyard Beaches</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {beaches.slice(0, 3).map((beach) => (
+            <Link
+              href={`/beaches/${beach.id}`}
+              key={beach.id}
+              className="bg-white rounded-lg shadow-md overflow-hidden block hover:shadow-lg transition-shadow"
+            >
+              <div className="h-48 w-full relative">
+                <Image
+                  src={beach.images.main}
+                  alt={`${beach.name} - a boneyard beach in ${beach.location.state}`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2">{beach.name}</h3>
+                <p className="text-gray-600 mb-2">{beach.location.state}</p>
+                <p className="text-gray-700 mb-4 line-clamp-3">{beach.description}</p>
+                <span className="text-blue-600 font-medium inline-flex items-center">
+                  Learn more
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* About Boneyard Beaches */}
+      <section className="w-full bg-gray-100">
+        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">What Are Boneyard Beaches?</h2>
+              <p className="text-gray-700 mb-4">
+                Boneyard beaches are coastal areas where erosion has caused trees to die, leaving behind skeletal-looking tree trunks and roots on the shoreline. These beaches get their name from the appearance of the dead trees, which resemble a "boneyard."
+              </p>
+              <p className="text-gray-700 mb-6">
+                They're often the result of coastal erosion, sea level rise, or changes in coastal dynamics. These natural phenomena create hauntingly beautiful landscapes that attract photographers, nature lovers, and tourists.
+              </p>
+              <Link
+                href="/about"
+                className="text-blue-600 hover:text-blue-800 font-medium"
+              >
+                Learn more about coastal erosion →
+              </Link>
+            </div>
+            <div className="mt-10 lg:mt-0 h-64 relative rounded-lg overflow-hidden">
+              <Image
+                src="/images/botany-bay.jpg"
+                alt="Boneyard Beach at Botany Bay Plantation"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
